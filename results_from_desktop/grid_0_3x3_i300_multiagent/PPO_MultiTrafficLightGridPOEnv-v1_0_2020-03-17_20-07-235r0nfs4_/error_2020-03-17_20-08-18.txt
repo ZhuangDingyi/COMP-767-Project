@@ -1,0 +1,42 @@
+Traceback (most recent call last):
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/tune/trial_runner.py", line 498, in _process_trial
+    result = self.trial_executor.fetch_result(trial)
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/tune/ray_trial_executor.py", line 342, in fetch_result
+    result = ray.get(trial_future[0])
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/worker.py", line 2247, in get
+    raise value
+ray.exceptions.RayTaskError: [36mray_PPO:train()[39m (pid=8014, host=153smart-06)
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/rllib/agents/trainer.py", line 369, in train
+    raise e
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/rllib/agents/trainer.py", line 358, in train
+    result = Trainable.train(self)
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/tune/trainable.py", line 171, in train
+    result = self._train()
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/rllib/agents/trainer_template.py", line 126, in _train
+    fetches = self.optimizer.step()
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/rllib/optimizers/multi_gpu_optimizer.py", line 140, in step
+    self.num_envs_per_worker, self.train_batch_size)
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/rllib/optimizers/rollout.py", line 29, in collect_samples
+    next_sample = ray_get_and_free(fut_sample)
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/rllib/utils/memory.py", line 33, in ray_get_and_free
+    result = ray.get(object_ids)
+ray.exceptions.RayTaskError: [36mray_RolloutWorker:sample()[39m (pid=8170, host=153smart-06)
+  File "/home/dingyizhuang/anaconda3/envs/flow/lib/python3.6/site-packages/ray/memory_monitor.py", line 106, in raise_if_low_memory
+    self.error_threshold))
+ray.memory_monitor.RayOutOfMemoryError: More than 95% of the memory on node 153smart-06 is used (16.45 / 16.6 GB). The top 10 memory consumers are:
+
+PID	MEM	COMMAND
+976	0.92GB	/usr/sbin/clamd --foreground=true
+4003	0.27GB	/usr/bin/gnome-shell
+8014	0.22GB	ray_PPO:train()
+4692	0.18GB	/usr/bin/gnome-software --gapplication-service
+7939	0.18GB	python examples/train.py multiagent_traffic_light_grid --rl_trainer RLlib
+4595	0.17GB	/usr/lib/slack/slack --type=renderer --autoplay-policy=no-user-gesture-required --force-color-profil
+8508	0.17GB	ray_RolloutWorker:sample()
+8624	0.17GB	ray_RolloutWorker:sample()
+8799	0.17GB	ray_RolloutWorker:sample()
+8462	0.17GB	ray_RolloutWorker:sample()
+
+In addition, up to 0.08 GB of shared memory is currently being used by the Ray object store. You can set the object store size with the `object_store_memory` parameter when starting Ray, and the max Redis size with `redis_max_memory`. Note that Ray assumes all system memory is available for use by workers. If your system has other applications running, you should manually set these memory limits to a lower value.
+
+

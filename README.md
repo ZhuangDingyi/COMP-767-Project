@@ -37,6 +37,8 @@ Our special scenario combines the regular crossroads and highway offramp.
 
 ## Video instruction
 
+[Watch our video in Youtube](https://youtu.be/wtCUl-WCAj0)
+
 ## Data and video sharepoint
 Only people in McGill University can access this link!
 
